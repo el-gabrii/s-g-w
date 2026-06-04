@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sammy &amp; Gabriel — April 2027</title>
+
+<!--
+═══════════════════════════════════════════════════════════════════════════
+  SAMMY & GABRIEL — WEDDING WEBSITE  (DRAFT MOCKUP)
+  Single self-contained file. No build step. Open locally or host anywhere.
+
+  ── QUICK EDIT MAP ──────────────────────────────────────────────────────
+  1. WEDDING DATE / COUNTDOWN: search for  WEDDING_DATE  (currently a
+     placeholder: Sat April 17, 2027, 3:30 PM). Change the one line.
+  2. TEXT: every line of copy lives in the HTML below, in plain words.
+     Just find the sentence and retype it. Things still TBD are marked
+     with the class "tbd" and say "Details coming soon."
+  3. PHOTOS: every photo slot is a <div class="ph"> with a label telling
+     you the filename to use. To drop in a real photo, replace that whole
+     <div class="ph" ...>...</div> with:
+         <img class="photo" src="photos/FILENAME.jpg" alt="description" />
+     (put your images in a folder named  photos  next to this file).
+  4. LINKS: Zola registry + RSVP links are already wired (search "zola.com").
+  ─────────────────────────────────────────────────────────────────────────
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══════════════ TOKENS ═══════════════ */
+:root{
+  --ink:#2b2f24;          /* near-black green, body text */
+  --forest:#3c4a33;       /* deep green sections */
+  --forest-deep:#2f3a28;
+  --moss:#5c6b4a;         /* mid green — buttons, accents */
+  --sage:#8d9779;         /* light green accent */
+  --cream:#e7e4d6;        /* page background */
+  --linen:#f3f0e6;        /* light cards / blocks */
+  --paper:#faf8f1;        /* lightest */
+  --night:#16180f;        /* countdown bg */
+  --line:rgba(60,74,51,.22);
+  --muted:#6c7060;
+
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --body:'EB Garamond', Georgia, serif;
+  --script:'Pinyon Script', cursive;
+  --label:'Jost', system-ui, sans-serif;
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  color:var(--ink);
+  background:var(--cream);
+  font-size:18px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+
+/* ── type helpers ── */
+.eyebrow{
+  font-family:var(--label);
+  font-weight:400;
+  font-size:.7rem;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--moss);
+}
+.script{font-family:var(--script);font-weight:400;line-height:1}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.08;letter-spacing:.01em}
+.section-title{font-size:clamp(2.1rem,7vw,3.4rem);font-weight:300}
+p{margin:0 0 1em}
+a{color:inherit}
+
+/* ── reusable photo placeholder ── */
+.ph{
+  position:relative;
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgba(141,151,121,.55), transparent 60%),
+    linear-gradient(150deg, #6f7c5b, #46543a 55%, #2f3a28);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;color:rgba(255,255,255,.92);
+  overflow:hidden;
+}
+.ph::after{ /* subtle grain/light */
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(60% 50% at 70% 80%, rgba(255,255,255,.14), transparent 70%);
+  mix-blend-mode:screen;pointer-events:none;
+}
+.ph .ph-inner{position:relative;z-index:1;padding:1.4rem;max-width:80%}
+.ph .ph-cam{font-family:var(--script);font-size:2.2rem;opacity:.9;margin-bottom:.2rem}
+.ph .ph-name{
+  font-family:var(--label);font-size:.62rem;letter-spacing:.28em;
+  text-transform:uppercase;opacity:.9
+}
+.ph .ph-desc{font-family:var(--body);font-style:italic;font-size:.95rem;opacity:.8;margin-top:.35rem}
+.photo{width:100%;height:100%;object-fit:cover}
+
+/* ── buttons ── */
+.btn{
+  display:inline-block;
+  font-family:var(--label);font-weight:400;
+  letter-spacing:.22em;text-transform:uppercase;font-size:.72rem;
+  padding:.95em 2.1em;border:1px solid var(--moss);
+  background:var(--moss);color:var(--paper);
+  text-decoration:none;cursor:pointer;
+  transition:background .35s var(--ease), color .35s var(--ease), transform .35s var(--ease);
+}
+.btn:hover{background:transparent;color:var(--moss);transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--moss)}
+.btn.ghost:hover{background:var(--moss);color:var(--paper)}
+.btn.light{border-color:rgba(255,255,255,.6);background:transparent;color:#fff}
+.btn.light:hover{background:#fff;color:var(--forest)}
+
+/* ═══════════════ NAV ═══════════════ */
+header.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.25rem;
+  background:rgba(231,228,214,0);
+  transition:background .4s var(--ease), box-shadow .4s var(--ease), padding .4s var(--ease);
+}
+header.nav.scrolled{
+  background:rgba(231,228,214,.94);
+  box-shadow:0 1px 0 var(--line);
+  padding:.7rem 1.25rem;
+  backdrop-filter:blur(6px);
+}
+.nav .brand{
+  font-family:var(--serif);font-size:1.15rem;letter-spacing:.18em;
+  color:var(--paper);transition:color .4s var(--ease)
+}
+header.nav.scrolled .brand{color:var(--forest)}
+.nav-links{display:none}
+.nav-toggle{
+  background:none;border:0;cursor:pointer;width:30px;height:22px;position:relative;z-index:120
+}
+.nav-toggle span{
+  position:absolute;left:0;right:0;height:1.5px;background:var(--paper);
+  transition:.35s var(--ease)
+}
+header.nav.scrolled .nav-toggle span{background:var(--forest)}
+.nav-toggle span:nth-child(1){top:2px}
+.nav-toggle span:nth-child(2){top:10px}
+.nav-toggle span:nth-child(3){top:18px}
+body.menu-open .nav-toggle span{background:var(--paper)}
+body.menu-open .nav-toggle span:nth-child(1){top:10px;transform:rotate(45deg)}
+body.menu-open .nav-toggle span:nth-child(2){opacity:0}
+body.menu-open .nav-toggle span:nth-child(3){top:10px;transform:rotate(-45deg)}
+
+/* mobile slide-in menu */
+.mobile-menu{
+  position:fixed;inset:0;z-index:110;
+  background:var(--forest-deep);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1.4rem;
+  opacity:0;pointer-events:none;transition:opacity .45s var(--ease)
+}
+body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
+.mobile-menu a{
+  font-family:var(--serif);font-size:1.7rem;color:var(--paper);
+  text-decoration:none;letter-spacing:.02em;opacity:.9
+}
+.mobile-menu a:hover{color:var(--sage)}
+.mobile-menu .script{font-size:2.6rem;color:var(--sage);margin-bottom:.4rem}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;align-items:center;justify-content:center;
+  padding:5rem 1.1rem 3rem;
+}
+.hero .ph{position:absolute;inset:0}
+/* keep the hero photo-slot caption out of the way of the names */
+.hero .ph .ph-inner{position:absolute;left:0;right:0;top:5.5rem;bottom:auto;max-width:none;padding:0 1rem}
+.hero .ph .ph-cam{display:none}
+.hero .ph .ph-name{opacity:.7}
+.hero .ph .ph-desc{display:none}
+/* full-bleed background slots: caption is documented separately, hide to avoid overlap */
+.countdown-photo .ph-inner,.rsvp .ph .ph-inner{display:none}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,36,22,.55),rgba(28,36,22,.32) 40%,rgba(28,36,22,.62))}
+.hero-frame{
+  position:relative;z-index:2;
+  border:1px solid rgba(255,255,255,.55);
+  padding:3.2rem 1.4rem;width:100%;max-width:560px;text-align:center;color:#fff;
+}
+.monogram{
+  width:78px;height:78px;border:1px solid rgba(255,255,255,.6);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 1.4rem;
+  font-family:var(--script);font-size:2rem;line-height:1
+}
+.hero-frame .names{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.7rem,12vw,4.2rem);letter-spacing:.02em;line-height:1.04;
+  text-wrap:balance;
+}
+.hero-frame .names .amp{font-family:var(--script);display:inline-block;font-size:.7em;margin:0 .12em;color:var(--sage)}
+.hero-frame .meta{
+  font-family:var(--label);letter-spacing:.32em;text-transform:uppercase;
+  font-size:.72rem;margin-top:1.2rem;opacity:.92
+}
+.hero-frame .meta .dot{margin:0 .55em;opacity:.6}
+.hero-scroll{
+  position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:2;
+  font-family:var(--label);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.8)
+}
+.hero-scroll::after{content:"";display:block;width:1px;height:34px;background:rgba(255,255,255,.6);margin:.5rem auto 0;animation:drop 2s var(--ease) infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ═══════════════ SECTION SHELL ═══════════════ */
+section{padding:4.5rem 1.25rem}
+.wrap{max-width:1080px;margin:0 auto}
+.center{text-align:center}
+.sec-head{text-align:center;margin-bottom:2.6rem}
+.sec-head .eyebrow{display:block;margin-bottom:.7rem}
+.bg-linen{background:var(--linen)}
+.bg-forest{background:var(--forest);color:var(--paper)}
+.bg-forest .eyebrow{color:var(--sage)}
+.bg-night{background:var(--night);color:var(--paper)}
+
+/* ── OUR STORY ── */
+.story-grid{display:grid;gap:2rem;align-items:center}
+.story-photo{aspect-ratio:3/4;border-radius:2px}
+.story-quote{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.18;margin-bottom:1.4rem}
+.story-body p{font-size:1.02rem}
+.story-sign{font-family:var(--script);font-size:2rem;margin-top:.6rem;color:var(--moss)}
+
+/* ── COUNTDOWN ── */
+.countdown-wrap{position:relative;text-align:center}
+.countdown-photo{position:absolute;inset:0;opacity:.32}
+.countdown-inner{position:relative;z-index:1;padding:1rem 0}
+.cd-grid{display:flex;justify-content:center;gap:clamp(1rem,5vw,3rem);margin:1.4rem 0 .4rem}
+.cd-unit{min-width:58px}
+.cd-num{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,11vw,4rem);line-height:1}
+.cd-lab{font-family:var(--label);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;opacity:.75;margin-top:.4rem}
+
+/* ── TIMELINE / THE DAY ── */
+.weekend{display:grid;gap:1.5rem;margin-bottom:3rem}
+.event-card{background:var(--paper);border:1px solid var(--line);padding:1.6rem 1.4rem}
+.event-card .day{font-family:var(--script);font-size:1.7rem;color:var(--moss);line-height:1}
+.event-card h3{font-size:1.5rem;margin:.2rem 0 .4rem}
+.event-card .when{font-family:var(--label);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.event-card p{font-size:.98rem;margin-top:.6rem;margin-bottom:0}
+
+.timeline{position:relative;max-width:560px;margin:0 auto;padding-left:1.6rem}
+.timeline::before{content:"";position:absolute;left:4px;top:.4rem;bottom:.4rem;width:1px;background:var(--sage)}
+.tl-item{position:relative;padding:0 0 1.7rem .4rem}
+.tl-item::before{content:"";position:absolute;left:-1.6rem;top:.45rem;width:9px;height:9px;border-radius:50%;background:var(--moss);box-shadow:0 0 0 3px var(--linen)}
+.tl-time{font-family:var(--label);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--moss)}
+.tl-name{font-family:var(--serif);font-size:1.5rem;margin-top:.1rem}
+.tl-note{font-size:.95rem;color:var(--muted);margin-top:.1rem}
+
+/* ── TRAVEL / HOTELS ── */
+.cards{display:grid;gap:1.2rem}
+.card{background:var(--paper);border:1px solid var(--line);padding:1.5rem 1.4rem}
+.card h3{font-size:1.4rem;margin-bottom:.3rem}
+.card .sub{font-family:var(--label);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+.card p{font-size:.96rem;margin-bottom:.8rem}
+
+/* ── THINGS TO DO ── */
+.todo-grid{display:grid;gap:1.6rem}
+.todo .ph{aspect-ratio:4/3;margin-bottom:.7rem;border-radius:2px}
+.todo h3{font-family:var(--serif);font-style:italic;font-size:1.35rem}
+.todo p{font-size:.94rem;opacity:.9}
+
+/* ── GALLERY ── */
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+.gallery .ph{aspect-ratio:3/4;border-radius:2px}
+.gallery .ph.wide{aspect-ratio:3/4}
+
+/* ── DETAILS STRIP (dress/food/social) ── */
+.strip{display:grid;gap:1.6rem}
+.strip .item h3{font-family:var(--serif);font-style:italic;font-size:1.5rem;margin-bottom:.5rem}
+.strip .item p{font-size:.98rem}
+
+/* ── REGISTRY ── */
+.registry-box{max-width:620px;margin:0 auto;text-align:center}
+.registry-box p{font-size:1.05rem}
+
+/* ── FAQ ── */
+.faq{max-width:760px;margin:0 auto}
+.faq-cat{margin-bottom:2.2rem}
+.faq-cat > .eyebrow{display:block;text-align:center;margin-bottom:1rem;color:var(--moss)}
+.qa{border-bottom:1px solid var(--line)}
+.qa button{
+  width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;
+  padding:1.05rem .2rem;font-family:var(--serif);font-size:1.22rem;color:var(--ink)
+}
+.qa button .plus{flex:none;font-family:var(--body);font-size:1.3rem;color:var(--moss);transition:transform .35s var(--ease);line-height:1.2}
+.qa.open button .plus{transform:rotate(45deg)}
+.qa .ans{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+.qa .ans-inner{padding:0 .2rem 1.1rem;font-size:1rem;color:#41463a}
+.qa .ans-inner a{color:var(--moss);text-decoration:underline}
+.tbd{font-style:italic;color:var(--muted)}
+.tbd::before{content:"✎  ";color:var(--sage);font-style:normal}
+
+/* ── RSVP ── */
+.rsvp{position:relative;text-align:center}
+.rsvp .ph{position:absolute;inset:0;opacity:1}
+.rsvp .rsvp-overlay{position:absolute;inset:0;background:rgba(28,36,22,.45)}
+.rsvp .rsvp-card{
+  position:relative;z-index:2;background:var(--linen);max-width:520px;margin:0 auto;
+  padding:3rem 1.8rem;border:1px solid rgba(255,255,255,.6)
+}
+.rsvp-card p{font-size:1.05rem}
+.rsvp-card .deadline{font-family:var(--label);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--moss);margin-bottom:1.5rem;display:block}
+
+/* ── FOOTER ── */
+footer{background:var(--forest-deep);color:var(--paper);text-align:center;padding:3.5rem 1.25rem}
+footer .script{font-size:3rem;color:var(--sage);margin-bottom:.4rem}
+footer .meta{font-family:var(--label);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;opacity:.8;margin-top:.8rem}
+footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opacity:.7;margin-top:1.4rem}
+
+/* ── reveal animation ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease), transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.hero-frame>*{opacity:0;transform:translateY(16px);animation:rise 1.1s var(--ease) forwards}
+.hero-frame>*:nth-child(1){animation-delay:.2s}
+.hero-frame>*:nth-child(2){animation-delay:.45s}
+.hero-frame>*:nth-child(3){animation-delay:.7s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+@media(min-width:720px){
+  body{font-size:19px}
+  .nav-links{display:flex;gap:1.9rem}
+  .nav-links a{
+    font-family:var(--label);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+    text-decoration:none;color:var(--paper);transition:color .35s var(--ease);position:relative
+  }
+  header.nav.scrolled .nav-links a{color:var(--forest)}
+  .nav-links a:hover{color:var(--sage)}
+  .nav-toggle,.mobile-menu{display:none}
+  section{padding:6rem 2rem}
+  .story-grid{grid-template-columns:1fr 1fr;gap:3.5rem}
+  .weekend{grid-template-columns:1fr 1fr 1fr}
+  .cards{grid-template-columns:1fr 1fr}
+  .todo-grid{grid-template-columns:1fr 1fr}
+  .strip{grid-template-columns:1fr 1fr 1fr}
+  .gallery{grid-template-columns:repeat(3,1fr);gap:1rem}
+  .gallery .ph.wide{grid-column:span 2;aspect-ratio:3/2}
+  .hero-frame{padding:4rem 3rem}
+}
+@media(min-width:1040px){
+  .gallery .ph.tall{grid-row:span 2;aspect-ratio:3/4}
+}
+
+/* ═══════════ TEMPLATE-MATCH ADDITIONS ═══════════ */
+/* script section titles (Our story / the big day / hotels / Things to do…) */
+.script-title{font-family:var(--script);font-weight:400;line-height:.95;font-size:clamp(2.8rem,12vw,4.6rem)}
+.sec-head .script-title{margin-top:.1rem}
+
+/* oval monogram */
+.monogram.oval{width:64px;height:84px;border-radius:50%}
+
+/* ── INVITATION block (quote layered over framed portrait) ── */
+.invite{background:var(--linen);text-align:center}
+.invite-photo-wrap{position:relative;max-width:330px;margin:0 auto 1.6rem}
+.invite-photo{aspect-ratio:3/4;border:1px solid var(--line)}
+.invite-quote{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(1.7rem,6.4vw,2.7rem);line-height:1.16;
+  max-width:620px;margin:0 auto 1.8rem;color:var(--ink)
+}
+.invite-line{
+  font-family:var(--label);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;
+  line-height:2;color:var(--muted);max-width:430px;margin:0 auto 1.3rem
+}
+.invite-date{font-family:var(--script);font-size:clamp(2rem,8vw,3rem);color:var(--moss);line-height:1;margin-bottom:.5rem}
+.invite-time{font-family:var(--label);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+
+/* ── OUR STORY (image-2 style: photo + green block) ── */
+.story2-photo{position:relative;aspect-ratio:16/10}
+.story2-photo .label{
+  position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+  text-align:center;color:#fff;font-family:var(--script);font-size:clamp(2.6rem,10vw,4rem);
+  text-shadow:0 2px 24px rgba(0,0,0,.45);z-index:2
+}
+.story2-photo .scrim{position:absolute;inset:0;background:rgba(40,52,32,.32);z-index:1}
+.story2-block{background:var(--forest);color:var(--paper);text-align:center;padding:3rem 1.5rem}
+.story2-block p{font-size:1.02rem;max-width:560px;margin:0 auto 1em}
+.story2-block .sign{font-family:var(--script);font-size:2.2rem;color:var(--sage);margin-top:.4rem}
+
+/* ── THE BIG DAY (photo + watermark date + schedule list) ── */
+.bigday{display:grid;gap:0;border:1px solid var(--line)}
+.bigday-photo{position:relative;aspect-ratio:4/3;min-height:260px}
+.bigday-panel{position:relative;background:var(--linen);padding:2.4rem 1.6rem;overflow:hidden}
+.bigday-date{
+  position:absolute;top:.6rem;left:1.1rem;z-index:0;
+  font-family:var(--serif);font-weight:300;line-height:.82;
+  font-size:clamp(3.8rem,15vw,5.2rem);color:transparent;
+  -webkit-text-stroke:1px rgba(92,107,74,.22);opacity:.85
+}
+.bigday-script{
+  position:relative;z-index:1;font-family:var(--script);color:var(--moss);
+  font-size:clamp(2.2rem,10vw,3rem);line-height:.9;margin-bottom:2rem
+}
+.sched{position:relative;z-index:1;list-style:none}
+.sched li{display:flex;gap:1rem;padding:.6rem 0;border-top:1px solid var(--line)}
+.sched li:first-child{border-top:0}
+.sched .t{flex:none;width:6.2rem;font-family:var(--label);font-weight:500;font-size:.72rem;letter-spacing:.12em;color:var(--moss);padding-top:.2rem}
+.sched .t.tbd{color:var(--muted)}
+.sched .e{font-family:var(--serif);font-size:1.25rem;line-height:1.2}
+.sched .e small{display:block;font-family:var(--body);font-size:.86rem;color:var(--muted);font-style:italic}
+
+/* ── GETTING HERE (thumbnail rows) ── */
+.gh-row{display:grid;grid-template-columns:84px 1fr;gap:1.1rem;align-items:start;padding:1.2rem 0;border-top:1px solid var(--line)}
+.gh-row:first-of-type{border-top:0}
+.gh-row .ph{aspect-ratio:1;border-radius:2px}
+.gh-row h3{font-size:1.35rem;font-style:italic;margin-bottom:.2rem}
+.gh-row .sub{font-family:var(--label);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.gh-row p{font-size:.94rem;margin-bottom:.5rem}
+
+/* ── HOTELS 2×2 grid ── */
+.hotels-head{text-align:center;margin:2.6rem 0 1.4rem}
+.hotel-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.hotel-card{background:var(--paper);border:1px solid var(--line);padding:1.2rem 1rem;text-align:center}
+.hotel-card h3{font-style:italic;font-size:1.25rem;margin-bottom:.4rem}
+.hotel-card p{font-size:.82rem;color:var(--muted);margin-bottom:.9rem;min-height:2.4em}
+.hotel-card .btn{font-size:.6rem;padding:.7em 1.4em}
+
+/* ── palette dots (FAQ footer nod) ── */
+.dots{display:flex;gap:.55rem;justify-content:center;margin:1.6rem 0 .4rem}
+.dots span{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
+.dots .d1{background:#8d9779}.dots .d2{background:#9fb1c6}.dots .d3{background:#b9c9b7}.dots .d4{background:#2f3a4a}.dots .d5{background:#d9b3bb}
+
+@media(min-width:720px){
+  .bigday{grid-template-columns:1.15fr 1fr}
+  .bigday-photo{aspect-ratio:auto}
+  .hotel-grid{gap:1.1rem}
+  .gh-row{grid-template-columns:110px 1fr}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<header class="nav" id="nav">
+  <a href="#top" class="brand">S &amp; G</a>
+  <nav class="nav-links">
+    <a href="#story">Our Story</a>
+    <a href="#day">The Day</a>
+    <a href="#travel">Travel</a>
+    <a href="#photos">Photos</a>
+    <a href="#faq">Details</a>
+    <a href="#registry">Registry</a>
+    <a href="#rsvp">RSVP</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <span class="script">Sammy &amp; Gabriel</span>
+  <a href="#story">Our Story</a>
+  <a href="#day">The Day</a>
+  <a href="#travel">Travel</a>
+  <a href="#photos">Photos</a>
+  <a href="#faq">Details &amp; FAQ</a>
+  <a href="#registry">Registry</a>
+  <a href="#rsvp">RSVP</a>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="top">
+  <!-- PHOTO SLOT 1 → replace this .ph div with <img class="photo" src="photos/hero.jpg" ...> -->
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-cam">photo</div>
+      <div class="ph-name">hero.jpg</div>
+      <div class="ph-desc">Wide, moody shot of the two of you (the lake/boat vibe)</div>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-frame">
+    <div class="monogram oval">S<span style="font-size:.55em;opacity:.8">&amp;</span>G</div>
+    <div class="names">Sammy <span class="amp">&amp;</span> Gabriel</div>
+    <div class="meta">
+      April&nbsp;2027 <span class="dot">•</span> Charleston, SC <span class="dot">•</span> Ceremony at 3:30&nbsp;PM
+    </div>
+  </div>
+
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ═══════════ INVITATION (mockup image 1, block 2) ═══════════ -->
+<section id="invite" class="invite">
+  <div class="wrap reveal">
+    <!-- PHOTO SLOT → replace with <img class="photo" src="photos/invite.jpg" ...> -->
+    <div class="invite-photo-wrap">
+      <div class="ph invite-photo">
+        <div class="ph-inner"><div class="ph-cam">photo</div><div class="ph-name">invite.jpg</div><div class="ph-desc">Portrait — vertical</div></div>
+      </div>
+    </div>
+    <p class="invite-quote">“To stand beside you, through every moment and every tomorrow.”</p>
+    <p class="invite-line">Together with our families, we, Sammy and Gabriel, joyfully invite you to celebrate our union in marriage</p>
+    <div class="invite-date">Sunday, April 2027</div>
+    <div class="invite-time">Ceremony starts at 3:30&nbsp;PM</div>
+  </div>
+</section>
+
+<!-- ═══════════ OUR STORY (mockup image 2) ═══════════ -->
+<section id="story">
+  <!-- PHOTO SLOT 2 → replace with <img class="photo" src="photos/story.jpg" ...> -->
+  <div class="ph story2-photo reveal">
+    <div class="scrim"></div>
+    <span class="label">Our story</span>
+    <div class="ph-inner" style="position:absolute;bottom:.8rem;left:0;right:0"><div class="ph-name">story.jpg</div></div>
+  </div>
+  <div class="story2-block reveal">
+    <p class="tbd">Your love story goes here — how you met, the proposal, anything you want guests to know. Details coming soon.</p>
+    <div class="sign">Sammy &amp; Gabriel</div>
+  </div>
+</section>
+
+<!-- ═══════════ COUNTDOWN ═══════════ -->
+<section class="bg-night countdown-wrap">
+  <!-- PHOTO SLOT 3 → replace with <img class="photo" src="photos/countdown.jpg" ...> (looks great in black & white) -->
+  <div class="ph countdown-photo">
+    <div class="ph-inner">
+      <div class="ph-name">countdown.jpg</div>
+      <div class="ph-desc">B&amp;W candid of the two of you</div>
+    </div>
+  </div>
+  <div class="countdown-inner wrap">
+    <span class="eyebrow" style="color:var(--sage)">Counting down to the big day</span>
+    <div class="cd-grid">
+      <div class="cd-unit"><div class="cd-num" id="cd-days">—</div><div class="cd-lab">Days</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-hours">—</div><div class="cd-lab">Hours</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-mins">—</div><div class="cd-lab">Minutes</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-secs">—</div><div class="cd-lab">Seconds</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ THE DAY ═══════════ -->
+<section id="day">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Wedding Details</span>
+    </div>
+
+    <!-- the big day: photo + watermark date + schedule -->
+    <div class="bigday reveal">
+      <!-- PHOTO SLOT → replace with <img class="photo" src="photos/bigday.jpg" ...> -->
+      <div class="ph bigday-photo">
+        <div class="ph-inner"><div class="ph-cam">photo</div><div class="ph-name">bigday.jpg</div><div class="ph-desc">Candid of the two of you</div></div>
+      </div>
+      <div class="bigday-panel">
+        <div class="bigday-date" aria-hidden="true">04<br>27</div>
+        <div class="bigday-script">the<br>big day</div>
+        <ul class="sched">
+          <li><span class="t">3:30 PM</span><span class="e">Guest Arrival<small>Please arrive early so we can keep to schedule</small></span></li>
+          <li><span class="t tbd">TBD</span><span class="e">Ceremony<small>Inside the chapel · open seating</small></span></li>
+          <li><span class="t tbd">TBD</span><span class="e">Cocktail Hour<small>Outdoors on the lawn</small></span></li>
+          <li><span class="t tbd">TBD</span><span class="e">Reception<small>Dinner, drinks &amp; dancing under the tent</small></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- weekend events -->
+    <div class="weekend" style="margin-top:2.5rem">
+      <div class="event-card reveal">
+        <div class="day">Friday</div>
+        <h3>Welcome Party</h3>
+        <div class="when">7:00 PM</div>
+        <p>If you are around on Friday night and want to join us for drinks, we will be meeting at 7pm at <span class="tbd">location coming soon</span>. We hope to see you there as we prepare for the wedding!</p>
+      </div>
+      <div class="event-card reveal">
+        <div class="day">Friday</div>
+        <h3>Rehearsal &amp; Dinner</h3>
+        <div class="when">Bridal Party</div>
+        <p>The rehearsal and rehearsal dinner is reserved for members of the bridal party.</p>
+      </div>
+      <div class="event-card reveal">
+        <div class="day">Saturday</div>
+        <h3>The Wedding</h3>
+        <div class="when">I&rsquo;On Chapel</div>
+        <p>The entire wedding will be taking place at the I&rsquo;On Chapel — ceremony inside, reception outside under a tent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRAVEL ═══════════ -->
+<section id="travel" class="bg-linen">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Travel &amp; Accommodations</span>
+      <h2 class="script-title">Getting here</h2>
+    </div>
+
+    <div class="reveal" style="max-width:680px;margin:0 auto">
+      <div class="gh-row">
+        <div class="ph"><div class="ph-inner"><div class="ph-name">venue.jpg</div></div></div>
+        <div>
+          <div class="sub">The Venue</div>
+          <h3>I&rsquo;On Chapel</h3>
+          <p>352 N Shelmore Blvd, Mount Pleasant, SC 29464 — just minutes from downtown Charleston.</p>
+          <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=I%27On+Chapel+352+N+Shelmore+Blvd+Mount+Pleasant+SC" target="_blank" rel="noopener">View Map</a>
+        </div>
+      </div>
+      <div class="gh-row">
+        <div class="ph"><div class="ph-inner"><div class="ph-name">airport.jpg</div></div></div>
+        <div>
+          <div class="sub">Flying In</div>
+          <h3>Charleston Int&rsquo;l (CHS)</h3>
+          <p>The nearest airport is Charleston International Airport (CHS).</p>
+          <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Charleston+International+Airport" target="_blank" rel="noopener">View Map</a>
+        </div>
+      </div>
+      <div class="gh-row">
+        <div class="ph"><div class="ph-inner"><div class="ph-name">car.jpg</div></div></div>
+        <div>
+          <div class="sub">Getting Around</div>
+          <h3>Rental Car</h3>
+          <p>We recommend you get a rental car, as this is the easiest way to get around Charleston. <span class="tbd">Recommended rental companies coming soon.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hotels 2×2 grid -->
+    <div class="hotels-head reveal">
+      <span class="eyebrow">Where to stay</span>
+      <h2 class="script-title">hotels</h2>
+    </div>
+    <div class="hotel-grid reveal" style="max-width:680px;margin:0 auto">
+      <div class="hotel-card"><h3>Hotel One</h3><p class="tbd">Coming soon</p><span class="btn ghost" style="opacity:.5;pointer-events:none">Website</span></div>
+      <div class="hotel-card"><h3>Hotel Two</h3><p class="tbd">Coming soon</p><span class="btn ghost" style="opacity:.5;pointer-events:none">Website</span></div>
+      <div class="hotel-card"><h3>Hotel Three</h3><p class="tbd">Coming soon</p><span class="btn ghost" style="opacity:.5;pointer-events:none">Website</span></div>
+      <div class="hotel-card"><h3>Hotel Four</h3><p class="tbd">Coming soon</p><span class="btn ghost" style="opacity:.5;pointer-events:none">Website</span></div>
+    </div>
+    <p class="center tbd" style="margin-top:1.4rem">Room block and booking timing coming soon.</p>
+  </div>
+</section>
+
+<!-- ═══════════ THINGS TO DO ═══════════ -->
+<section class="bg-forest">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">In &amp; around Charleston</span>
+      <h2 class="script-title" style="color:var(--paper)">Things to do and see</h2>
+    </div>
+    <div class="todo-grid">
+      <div class="todo reveal">
+        <div class="ph"><div class="ph-inner"><div class="ph-name" style="color:#fff">eat.jpg</div></div></div>
+        <h3>Favorite Restaurants</h3>
+        <p class="tbd" style="color:rgba(255,255,255,.75)">Our Charleston restaurant picks are coming soon.</p>
+      </div>
+      <div class="todo reveal">
+        <div class="ph"><div class="ph-inner"><div class="ph-name" style="color:#fff">do.jpg</div></div></div>
+        <h3>Things to Do</h3>
+        <p class="tbd" style="color:rgba(255,255,255,.75)">Our favorite things to do in Charleston are coming soon.</p>
+      </div>
+      <div class="todo reveal">
+        <div class="ph"><div class="ph-inner"><div class="ph-name" style="color:#fff">explore.jpg</div></div></div>
+        <h3>Neighborhoods</h3>
+        <p class="tbd" style="color:rgba(255,255,255,.75)">Neighborhoods to explore are coming soon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PHOTOS / GALLERY ═══════════ -->
+<section id="photos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">A few of our favorites</span>
+      <h2 class="section-title">Photos</h2>
+    </div>
+    <div class="gallery reveal">
+      <!-- PHOTO SLOTS → replace each .ph with <img class="photo" src="photos/gallery-N.jpg" ...> -->
+      <div class="ph wide"><div class="ph-inner"><div class="ph-name">gallery-1.jpg</div><div class="ph-desc">Engagement — wide</div></div></div>
+      <div class="ph tall"><div class="ph-inner"><div class="ph-name">gallery-2.jpg</div></div></div>
+      <div class="ph"><div class="ph-inner"><div class="ph-name">gallery-3.jpg</div></div></div>
+      <div class="ph"><div class="ph-inner"><div class="ph-name">gallery-4.jpg</div></div></div>
+      <div class="ph"><div class="ph-inner"><div class="ph-name">gallery-5.jpg</div></div></div>
+      <div class="ph wide"><div class="ph-inner"><div class="ph-name">gallery-6.jpg</div><div class="ph-desc">Engagement — wide</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DETAILS STRIP ═══════════ -->
+<section class="bg-linen">
+  <div class="wrap">
+    <div class="strip">
+      <div class="item reveal">
+        <h3>Dress Code</h3>
+        <p class="tbd">The best question. The dress code is coming soon.</p>
+        <p style="font-size:.92rem;color:var(--muted)">The reception will be on a grassy lawn — wear whatever feels most comfortable within the dress code. Please, please, please do not wear white, ivory, champagne, or bridal-adjacent colors.</p>
+      </div>
+      <div class="item reveal">
+        <h3>Food &amp; Drink</h3>
+        <p>We will have gluten-free, vegetarian, and vegan options.</p>
+        <p style="font-size:.92rem;color:var(--muted)">Questions about allergies? Contact the maid of honor (she has a nut &amp; sesame allergy, so chances are you&rsquo;re fine).</p>
+      </div>
+      <div class="item reveal">
+        <h3>Photos &amp; Social</h3>
+        <p>Feel free to post any pictures you like! Our hashtag is <strong>#BonesWedding27</strong>.</p>
+        <p style="font-size:.92rem;color:var(--muted)">We kindly ask that you refrain from photos during the ceremony — afterward, snap away.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ REGISTRY ═══════════ -->
+<section id="registry" class="bg-forest">
+  <div class="wrap registry-box reveal">
+    <span class="eyebrow">Gifts</span>
+    <h2 class="section-title" style="color:var(--paper);margin:.6rem 0 1.2rem">Registry</h2>
+    <p>Your presence is enough. We know many of you will be travelling from across the world to celebrate us, and we are so grateful. Please do not feel any pressure to celebrate financially.</p>
+    <p>If you&rsquo;d like to give a gift, you&rsquo;ll find our registry — and our honeymoon fund — on Zola.</p>
+    <a class="btn light" href="https://www.zola.com/registry/igbokwe" target="_blank" rel="noopener" style="margin-top:.6rem">View Our Registry</a>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ (her exact copy) ═══════════ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Everything you need to know</span>
+      <h2 class="section-title">Questions &amp; Details</h2>
+    </div>
+
+    <div class="faq">
+
+      <!-- Attendance & RSVP -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Attendance &amp; RSVP</span>
+        <div class="qa"><button>When do I need to RSVP?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Please RSVP by February 1, 2027.</div></div></div>
+        <div class="qa"><button>How do I RSVP?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Using our online RSVP tool on this website, please use your name and follow the instructions. The link is also here: <a href="https://www.zola.com/wedding/igbokwe/rsvp" target="_blank" rel="noopener">RSVP on Zola</a></div></div></div>
+        <div class="qa"><button>Can I bring a plus one?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">We would like to keep our wedding as intimate as possible, so we are not allowing any plus-ones that are not specifically listed on your invitation. Thank you for your understanding.</div></div></div>
+        <div class="qa"><button>Can I bring my children?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Similarly, if your children are invited, they will be listed on your invitation.</div></div></div>
+        <div class="qa"><button>What if I miss the RSVP deadline?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">If there are extenuating circumstances that cause you to delay your RSVP, please contact the Mother of the Bride, Rachel Daichendt, or the Maid of Honor, Jackie Lord. They will be happy to figure out the situation with the bride.</div></div></div>
+        <div class="qa"><button>What if I can no longer attend after RSVPing?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">If you can no longer attend, please update your RSVP as quickly as possible and let the bride or groom know.</div></div></div>
+      </div>
+
+      <!-- Ceremony & Reception -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Ceremony &amp; Reception</span>
+        <div class="qa"><button>What time should I arrive?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Please try to arrive early, around 3:30PM. This ensures a timely schedule for the rest of the event.</div></div></div>
+        <div class="qa"><button>Is parking available at the venue?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes, right outside the chapel, there is a small parking lot. There is also parking available in the surrounding neighborhood. Please provide yourself with ample time to park and arrive at your seat.</div></div></div>
+        <div class="qa"><button>Will the ceremony and reception be at the same location?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes, the entire wedding will be taking place at the I&rsquo;On Chapel.</div></div></div>
+        <div class="qa"><button>Will the wedding be indoors or outdoors?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Our ceremony will be inside, and the reception will take place outside. There will be a tent covering outdoors in case of rain, harsh sun, or other unpredictable weather.</div></div></div>
+        <div class="qa"><button>Will there be assigned seating?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">For the ceremony, no! Please feel free to sit where you&rsquo;d like. At the reception, you will find your table assignment via the seat card with your name and number.</div></div></div>
+        <div class="qa"><button>Can I take pictures?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">We kindly ask that you refrain from taking any photos during the ceremony. We want everyone to be present and honor the bride and groom. Once the ceremony is over, feel free to take as many photos as you&rsquo;d like! We will be happy to share our professional photos with you afterwards, as well.</div></div></div>
+      </div>
+
+      <!-- Dress Code -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Dress Code</span>
+        <div class="qa"><button>What is the dress code?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">The best question. <span class="tbd">We will be… (coming soon).</span></div></div></div>
+        <div class="qa"><button>Will guests be walking on grass, cobblestones, sand, etc.?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">There are a variety of surfaces at the venue, but the reception will be on a grassy lawn. Please wear whatever feels most comfortable to you within the dress code.</div></div></div>
+        <div class="qa"><button>Are there any colors guests should avoid?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Please, please, please do not wear white, ivory, champagne, or bridal-adjacent colors.</div></div></div>
+      </div>
+
+      <!-- Travel & Accommodations -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Travel &amp; Accommodations</span>
+        <div class="qa"><button>Where should I stay?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+        <div class="qa"><button>Have you reserved a hotel block?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+        <div class="qa"><button>When should I book my hotel?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+        <div class="qa"><button>What airport should I fly into?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">The nearest airport is Charleston International Airport (CHS).</div></div></div>
+        <div class="qa"><button>Do I need a rental car?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">We recommend you get a rental car, as this is the easiest way to get around Charleston. You can check out these rental companies: <span class="tbd">coming soon.</span></div></div></div>
+      </div>
+
+      <!-- Weekend Events -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Weekend Events</span>
+        <div class="qa"><button>Are there any events besides the wedding?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">The rehearsal and rehearsal dinner is reserved for members of the bridal party, but we hope to see you at the Welcome Party.</div></div></div>
+        <div class="qa"><button>So, there&rsquo;s a welcome party?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes! If you are around on Friday night and want to join us for drinks, we will be meeting at 7pm at <span class="tbd">_______ (location coming soon)</span>. We hope to see you there as we prepare for the wedding!</div></div></div>
+        <div class="qa"><button>Will there be a farewell brunch?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">No. Gabriel and I will be too excited to be married, but we hope you have a lovely Sunday enjoying Charleston after the best night of your life!</div></div></div>
+      </div>
+
+      <!-- Food & Drink -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Food &amp; Drink</span>
+        <div class="qa"><button>Can dietary restrictions be accommodated?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">We will have gluten-free, vegetarian, and vegan options.</div></div></div>
+        <div class="qa"><button>Who should I contact about allergies?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">The maid of honor (she has a nut &amp; sesame allergy, so chances are you are fine).</div></div></div>
+      </div>
+
+      <!-- Photography & Social Media -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Photography &amp; Social Media</span>
+        <div class="qa"><button>Can I post photos on social media?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes, feel free to post any pictures you like!</div></div></div>
+        <div class="qa"><button>Is there a wedding hashtag?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yep. #BonesWedding27</div></div></div>
+      </div>
+
+      <!-- Gifts & Registry -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Gifts &amp; Registry</span>
+        <div class="qa"><button>Are you registered? Where can I find your registry?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes! You can find our registry on this site or at the link <a href="https://www.zola.com/registry/igbokwe" target="_blank" rel="noopener">here</a>.</div></div></div>
+        <div class="qa"><button>Do you have a honeymoon fund?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes, it is also under our registry.</div></div></div>
+        <div class="qa"><button>Can gifts be shipped directly?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">If you decide to purchase outside the registry platform, gifts can be sent to Sammy&rsquo;s apartment. Please message the mother of the bride, the maid of honor, or Sammy/Gabriel for their address.</div></div></div>
+        <div class="qa"><button>Is my presence enough?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Absolutely. We know many of you will be travelling from across the world to celebrate us, and we are so grateful for your presence. Please do not feel any pressure to celebrate financially.</div></div></div>
+      </div>
+
+      <!-- Charleston-Specific -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Charleston</span>
+        <div class="qa"><button>What are your favorite Charleston restaurants?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+        <div class="qa"><button>What are your favorite things to do in Charleston?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+        <div class="qa"><button>Which neighborhoods should we explore?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+        <div class="qa"><button>What&rsquo;s the weather typically like in April?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+        <div class="qa"><button>What should I pack?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+      </div>
+
+      <!-- Guest Experience -->
+      <div class="faq-cat reveal">
+        <span class="eyebrow">Guest Experience</span>
+        <div class="qa"><button>Who do I contact on the wedding day if I have a question?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">We kindly ask that you please do not contact the bride or groom on their wedding day. We have faith that you can find the answer to your question on your own (or ask chatGPT). In case of emergencies or dire needs, you may contact Jim or Rachel Daichendt, Jackie Lord, or Alisa Groves (the wedding coordinator).</div></div></div>
+      </div>
+
+      <div class="dots reveal" title="Our colors"><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span><span class="d5"></span></div>
+      <p class="center tbd" style="font-size:.9rem">Our color palette — placeholder swatches</p>
+
+    </div>
+  </div>
+</section>
+<section id="rsvp" class="rsvp">
+  <!-- PHOTO SLOT → replace with <img class="photo" src="photos/rsvp.jpg" ...> -->
+  <div class="ph">
+    <div class="ph-inner"><div class="ph-name" style="color:#fff">rsvp.jpg</div><div class="ph-desc">Soft background photo</div></div>
+  </div>
+  <div class="rsvp-overlay"></div>
+  <div class="rsvp-card reveal">
+    <span class="eyebrow">We hope you can join us</span>
+    <h2 class="section-title" style="margin:.5rem 0 1rem">RSVP</h2>
+    <p>Please join us in celebrating our wedding. Use your name and follow the instructions on Zola.</p>
+    <span class="deadline">Please reply before February 1, 2027</span>
+    <a class="btn" href="https://www.zola.com/wedding/igbokwe/rsvp" target="_blank" rel="noopener">RSVP on Zola</a>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="script">Sammy &amp; Gabriel</div>
+  <div class="meta">April 2027 &nbsp;•&nbsp; I&rsquo;On Chapel &nbsp;•&nbsp; Charleston, SC</div>
+  <div class="hash">#BonesWedding27</div>
+</footer>
+
+<script>
+/* ── WEDDING_DATE ──────────────────────────────────────────────
+   PLACEHOLDER: Saturday, April 17, 2027, 3:30 PM (local).
+   Change the values below to your real date/time. Format:
+   new Date(YEAR, MONTH-1, DAY, HOUR, MINUTE)   ← month is 0-indexed!
+─────────────────────────────────────────────────────────────── */
+var WEDDING_DATE = new Date(2027, 3, 17, 15, 30, 0);
+
+(function countdown(){
+  var d = document.getElementById('cd-days'),
+      h = document.getElementById('cd-hours'),
+      m = document.getElementById('cd-mins'),
+      s = document.getElementById('cd-secs');
+  function tick(){
+    var diff = WEDDING_DATE - new Date();
+    if(diff < 0) diff = 0;
+    var days = Math.floor(diff/86400000);
+    var hrs  = Math.floor(diff%86400000/3600000);
+    var min  = Math.floor(diff%3600000/60000);
+    var sec  = Math.floor(diff%60000/1000);
+    d.textContent = days;
+    h.textContent = String(hrs).padStart(2,'0');
+    m.textContent = String(min).padStart(2,'0');
+    s.textContent = String(sec).padStart(2,'0');
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+/* ── nav background on scroll ── */
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function(){
+  if(window.scrollY > 40) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+/* ── mobile menu ── */
+var toggle = document.getElementById('navToggle');
+toggle.addEventListener('click', function(){ document.body.classList.toggle('menu-open'); });
+document.querySelectorAll('#mobileMenu a').forEach(function(a){
+  a.addEventListener('click', function(){ document.body.classList.remove('menu-open'); });
+});
+
+/* ── FAQ accordion ── */
+document.querySelectorAll('.qa button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var qa = btn.parentElement;
+    var ans = qa.querySelector('.ans');
+    var open = qa.classList.toggle('open');
+    ans.style.maxHeight = open ? ans.scrollHeight + 'px' : 0;
+  });
+});
+
+/* ── scroll reveal ── */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
