@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sammy &amp; Gabriel — April 2027</title>
+<title>Sammy &amp; Gabriel — April 10, 2027</title>
 
 <!--
 ═══════════════════════════════════════════════════════════════════════════
@@ -12,7 +12,7 @@
 
   ── QUICK EDIT MAP ──────────────────────────────────────────────────────
   1. WEDDING DATE / COUNTDOWN: search for  WEDDING_DATE  (currently a
-     placeholder: Sat April 17, 2027, 3:30 PM). Change the one line.
+     Sat April 10, 2027, 3:30 PM). Change the one line.
   2. TEXT: every line of copy lives in the HTML below, in plain words.
      Just find the sentence and retype it. Things still TBD are marked
      with the class "tbd" and say "Details coming soon."
@@ -397,9 +397,9 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 .bigday-panel{position:relative;background:var(--linen);padding:2.4rem 1.6rem;overflow:hidden}
 .bigday-date{
   position:absolute;top:.6rem;left:1.1rem;z-index:0;
-  font-family:var(--serif);font-weight:300;line-height:.82;
-  font-size:clamp(3.8rem,15vw,5.2rem);color:transparent;
-  -webkit-text-stroke:1px rgba(92,107,74,.22);opacity:.85
+  font-family:var(--serif);font-weight:300;line-height:.84;
+  font-size:clamp(3rem,12vw,4.3rem);color:transparent;
+  -webkit-text-stroke:1px rgba(92,107,74,.18);opacity:.8
 }
 .bigday-script{
   position:relative;z-index:1;font-family:var(--script);color:var(--moss);
@@ -440,6 +440,12 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
   .hotel-grid{gap:1.1rem}
   .gh-row{grid-template-columns:110px 1fr}
 }
+#photos .gallery{grid-template-columns:1fr;max-width:560px;margin:0 auto}
+@media(min-width:720px){#photos .gallery{grid-template-columns:repeat(3,1fr);max-width:none}}
+.gallery2{display:grid;gap:.7rem;grid-template-columns:1fr 1fr;max-width:760px;margin:0 auto}
+.gallery2 .photo{width:100%;height:auto;border-radius:2px}
+.gallery2 .g-wide{grid-column:1/-1;aspect-ratio:3/2}
+.gallery2 .g-tall{aspect-ratio:3/4}
 </style>
 </head>
 
@@ -475,21 +481,14 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero" id="top">
-  <!-- PHOTO SLOT 1 → replace this .ph div with <img class="photo" src="photos/hero.jpg" ...> -->
-  <div class="ph">
-    <div class="ph-inner">
-      <div class="ph-cam">photo</div>
-      <div class="ph-name">hero.jpg</div>
-      <div class="ph-desc">Wide, moody shot of the two of you (the lake/boat vibe)</div>
-    </div>
-  </div>
+  <img class="photo" src="photos/hero.jpg" alt="Sammy and Gabriel under the trees" style="position:absolute;inset:0;object-position:center 35%" />
   <div class="hero-overlay"></div>
 
   <div class="hero-frame">
     <div class="monogram oval">S<span style="font-size:.55em;opacity:.8">&amp;</span>G</div>
     <div class="names">Sammy <span class="amp">&amp;</span> Gabriel</div>
     <div class="meta">
-      April&nbsp;2027 <span class="dot">•</span> Charleston, SC <span class="dot">•</span> Ceremony at 3:30&nbsp;PM
+      April&nbsp;10,&nbsp;2027 <span class="dot">•</span> Charleston, SC <span class="dot">•</span> Ceremony at 3:30&nbsp;PM
     </div>
   </div>
 
@@ -499,15 +498,12 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 <!-- ═══════════ INVITATION (mockup image 1, block 2) ═══════════ -->
 <section id="invite" class="invite">
   <div class="wrap reveal">
-    <!-- PHOTO SLOT → replace with <img class="photo" src="photos/invite.jpg" ...> -->
     <div class="invite-photo-wrap">
-      <div class="ph invite-photo">
-        <div class="ph-inner"><div class="ph-cam">photo</div><div class="ph-name">invite.jpg</div><div class="ph-desc">Portrait — vertical</div></div>
-      </div>
+      <img class="photo" src="photos/invite.jpg" alt="Sammy and Gabriel" style="width:100%;height:auto;display:block" />
     </div>
     <p class="invite-quote">“To stand beside you, through every moment and every tomorrow.”</p>
     <p class="invite-line">Together with our families, we, Sammy and Gabriel, joyfully invite you to celebrate our union in marriage</p>
-    <div class="invite-date">Sunday, April 2027</div>
+    <div class="invite-date">Saturday, April 10, 2027</div>
     <div class="invite-time">Ceremony starts at 3:30&nbsp;PM</div>
   </div>
 </section>
@@ -516,9 +512,9 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 <section id="story">
   <!-- PHOTO SLOT 2 → replace with <img class="photo" src="photos/story.jpg" ...> -->
   <div class="ph story2-photo reveal">
+    <img class="photo" src="photos/story.jpg" alt="Sammy and Gabriel" style="position:absolute;inset:0;object-position:50% 40%" />
     <div class="scrim"></div>
     <span class="label">Our story</span>
-    <div class="ph-inner" style="position:absolute;bottom:.8rem;left:0;right:0"><div class="ph-name">story.jpg</div></div>
   </div>
   <div class="story2-block reveal">
     <p class="tbd">Your love story goes here — how you met, the proposal, anything you want guests to know. Details coming soon.</p>
@@ -528,13 +524,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 
 <!-- ═══════════ COUNTDOWN ═══════════ -->
 <section class="bg-night countdown-wrap">
-  <!-- PHOTO SLOT 3 → replace with <img class="photo" src="photos/countdown.jpg" ...> (looks great in black & white) -->
-  <div class="ph countdown-photo">
-    <div class="ph-inner">
-      <div class="ph-name">countdown.jpg</div>
-      <div class="ph-desc">B&amp;W candid of the two of you</div>
-    </div>
-  </div>
+  <img class="photo countdown-photo" src="photos/bigday.jpg" alt="" style="filter:grayscale(1);object-position:50% 38%" />
   <div class="countdown-inner wrap">
     <span class="eyebrow" style="color:var(--sage)">Counting down to the big day</span>
     <div class="cd-grid">
@@ -555,12 +545,11 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 
     <!-- the big day: photo + watermark date + schedule -->
     <div class="bigday reveal">
-      <!-- PHOTO SLOT → replace with <img class="photo" src="photos/bigday.jpg" ...> -->
-      <div class="ph bigday-photo">
-        <div class="ph-inner"><div class="ph-cam">photo</div><div class="ph-name">bigday.jpg</div><div class="ph-desc">Candid of the two of you</div></div>
+      <div class="bigday-photo">
+        <img class="photo" src="photos/bigday.jpg" alt="Sammy and Gabriel" style="object-position:50% 35%" />
       </div>
       <div class="bigday-panel">
-        <div class="bigday-date" aria-hidden="true">04<br>27</div>
+        <div class="bigday-date" aria-hidden="true">04<br>10<br>27</div>
         <div class="bigday-script">the<br>big day</div>
         <ul class="sched">
           <li><span class="t">3:30 PM</span><span class="e">Guest Arrival<small>Please arrive early so we can keep to schedule</small></span></li>
@@ -577,7 +566,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
         <div class="day">Friday</div>
         <h3>Welcome Party</h3>
         <div class="when">7:00 PM</div>
-        <p>If you are around on Friday night and want to join us for drinks, we will be meeting at 7pm at <span class="tbd">location coming soon</span>. We hope to see you there as we prepare for the wedding!</p>
+        <p>If you are around on Friday night and want to join us for drinks, we will be meeting at 7pm somewhere cute. We hope to see you there as we prepare for the wedding!</p>
       </div>
       <div class="event-card reveal">
         <div class="day">Friday</div>
@@ -643,7 +632,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       <div class="hotel-card"><h3>Hotel Three</h3><p class="tbd">Coming soon</p><span class="btn ghost" style="opacity:.5;pointer-events:none">Website</span></div>
       <div class="hotel-card"><h3>Hotel Four</h3><p class="tbd">Coming soon</p><span class="btn ghost" style="opacity:.5;pointer-events:none">Website</span></div>
     </div>
-    <p class="center tbd" style="margin-top:1.4rem">Room block and booking timing coming soon.</p>
+    <p class="center" style="margin-top:1.4rem;color:var(--muted);font-size:.95rem">Hotel picks are coming soon — but we&rsquo;d recommend booking as soon as possible, since Charleston fills up in the spring.</p>
   </div>
 </section>
 
@@ -681,14 +670,10 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       <span class="eyebrow">A few of our favorites</span>
       <h2 class="section-title">Photos</h2>
     </div>
-    <div class="gallery reveal">
-      <!-- PHOTO SLOTS → replace each .ph with <img class="photo" src="photos/gallery-N.jpg" ...> -->
-      <div class="ph wide"><div class="ph-inner"><div class="ph-name">gallery-1.jpg</div><div class="ph-desc">Engagement — wide</div></div></div>
-      <div class="ph tall"><div class="ph-inner"><div class="ph-name">gallery-2.jpg</div></div></div>
-      <div class="ph"><div class="ph-inner"><div class="ph-name">gallery-3.jpg</div></div></div>
-      <div class="ph"><div class="ph-inner"><div class="ph-name">gallery-4.jpg</div></div></div>
-      <div class="ph"><div class="ph-inner"><div class="ph-name">gallery-5.jpg</div></div></div>
-      <div class="ph wide"><div class="ph-inner"><div class="ph-name">gallery-6.jpg</div><div class="ph-desc">Engagement — wide</div></div></div>
+    <div class="gallery2 reveal">
+      <img class="photo g-wide" src="photos/gallery-1.jpg" alt="Sammy and Gabriel in the courtyard" style="object-position:50% 55%" />
+      <img class="photo g-tall" src="photos/gallery-2.jpg" alt="Holding hands" style="object-position:50% 45%" />
+      <img class="photo g-tall" src="photos/gallery-3.jpg" alt="Sammy and Gabriel under cherry blossoms" style="object-position:50% 42%" />
     </div>
   </div>
 </section>
@@ -699,8 +684,8 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
     <div class="strip">
       <div class="item reveal">
         <h3>Dress Code</h3>
-        <p class="tbd">The best question. The dress code is coming soon.</p>
-        <p style="font-size:.92rem;color:var(--muted)">The reception will be on a grassy lawn — wear whatever feels most comfortable within the dress code. Please, please, please do not wear white, ivory, champagne, or bridal-adjacent colors.</p>
+        <p>Our dress code is best described as &ldquo;Formal/Cocktail Garden Chic&rdquo; — not black-tie, but please look your best. Light pastels, linen, satin, patterns &amp; textures encouraged; please avoid black or dark jewel tones.</p>
+        <p style="font-size:.92rem;color:var(--muted)">Ladies, midi or maxi dresses in light pastels (no white or cream). Men, light suits; a tie is welcomed but not required. <a href="https://pin.it/7Ag8wpSIS" target="_blank" rel="noopener" style="color:var(--moss)">See our Pinterest board &rarr;</a></p>
       </div>
       <div class="item reveal">
         <h3>Food &amp; Drink</h3>
@@ -723,7 +708,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
     <h2 class="section-title" style="color:var(--paper);margin:.6rem 0 1.2rem">Registry</h2>
     <p>Your presence is enough. We know many of you will be travelling from across the world to celebrate us, and we are so grateful. Please do not feel any pressure to celebrate financially.</p>
     <p>If you&rsquo;d like to give a gift, you&rsquo;ll find our registry — and our honeymoon fund — on Zola.</p>
-    <a class="btn light" href="https://www.zola.com/registry/igbokwe" target="_blank" rel="noopener" style="margin-top:.6rem">View Our Registry</a>
+    <a class="btn light" href="https://www.zola.com/wedding/igbokwe/registry" target="_blank" rel="noopener" style="margin-top:.6rem">View Our Registry</a>
   </div>
 </section>
 
@@ -740,7 +725,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       <!-- Attendance & RSVP -->
       <div class="faq-cat reveal">
         <span class="eyebrow">Attendance &amp; RSVP</span>
-        <div class="qa"><button>When do I need to RSVP?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Please RSVP by February 1, 2027.</div></div></div>
+        <div class="qa"><button>When do I need to RSVP?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Please RSVP by January 30, 2027. But, the sooner the better!</div></div></div>
         <div class="qa"><button>How do I RSVP?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Using our online RSVP tool on this website, please use your name and follow the instructions. The link is also here: <a href="https://www.zola.com/wedding/igbokwe/rsvp" target="_blank" rel="noopener">RSVP on Zola</a></div></div></div>
         <div class="qa"><button>Can I bring a plus one?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">We would like to keep our wedding as intimate as possible, so we are not allowing any plus-ones that are not specifically listed on your invitation. Thank you for your understanding.</div></div></div>
         <div class="qa"><button>Can I bring my children?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Similarly, if your children are invited, they will be listed on your invitation.</div></div></div>
@@ -762,7 +747,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       <!-- Dress Code -->
       <div class="faq-cat reveal">
         <span class="eyebrow">Dress Code</span>
-        <div class="qa"><button>What is the dress code?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">The best question. <span class="tbd">We will be… (coming soon).</span></div></div></div>
+        <div class="qa"><button>What is the dress code?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">The best question. Our dress code is best described as &ldquo;Formal/Cocktail Garden Chic.&rdquo; What does this mean? Happy to tell you. In short: this is not a black-tie event, but we would like you to look your best. Ladies, please wear midi or maxi dresses in light pastel colors (but NO white or cream). Satin, patterns &amp; textures are encouraged. Men, please wear light suits, a tie is not required but welcomed. Linen and pastels are encouraged! Please try to avoid black or dark jewel tones. Pinterest board with visual direction is linked <a href="https://pin.it/7Ag8wpSIS" target="_blank" rel="noopener">here</a>.</div></div></div>
         <div class="qa"><button>Will guests be walking on grass, cobblestones, sand, etc.?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">There are a variety of surfaces at the venue, but the reception will be on a grassy lawn. Please wear whatever feels most comfortable to you within the dress code.</div></div></div>
         <div class="qa"><button>Are there any colors guests should avoid?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Please, please, please do not wear white, ivory, champagne, or bridal-adjacent colors.</div></div></div>
       </div>
@@ -770,9 +755,8 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       <!-- Travel & Accommodations -->
       <div class="faq-cat reveal">
         <span class="eyebrow">Travel &amp; Accommodations</span>
-        <div class="qa"><button>Where should I stay?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
-        <div class="qa"><button>Have you reserved a hotel block?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
-        <div class="qa"><button>When should I book my hotel?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon.</span></div></div></div>
+        <div class="qa"><button>Where should I stay?<span class="plus">+</span></button><div class="ans"><div class="ans-inner"><span class="tbd">Coming soon!</span></div></div></div>
+        <div class="qa"><button>When should I book my hotel?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Honestly, that&rsquo;s up to you, but we would recommend you book your hotel as soon as possible since Charleston is very popular in the spring.</div></div></div>
         <div class="qa"><button>What airport should I fly into?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">The nearest airport is Charleston International Airport (CHS).</div></div></div>
         <div class="qa"><button>Do I need a rental car?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">We recommend you get a rental car, as this is the easiest way to get around Charleston. You can check out these rental companies: <span class="tbd">coming soon.</span></div></div></div>
       </div>
@@ -781,7 +765,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       <div class="faq-cat reveal">
         <span class="eyebrow">Weekend Events</span>
         <div class="qa"><button>Are there any events besides the wedding?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">The rehearsal and rehearsal dinner is reserved for members of the bridal party, but we hope to see you at the Welcome Party.</div></div></div>
-        <div class="qa"><button>So, there&rsquo;s a welcome party?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes! If you are around on Friday night and want to join us for drinks, we will be meeting at 7pm at <span class="tbd">_______ (location coming soon)</span>. We hope to see you there as we prepare for the wedding!</div></div></div>
+        <div class="qa"><button>So, there&rsquo;s a welcome party?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes! If you are around on Friday night and want to join us for drinks, we will be meeting at 7pm somewhere cute. We hope to see you there as we prepare for the wedding!</div></div></div>
         <div class="qa"><button>Will there be a farewell brunch?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">No. Gabriel and I will be too excited to be married, but we hope you have a lovely Sunday enjoying Charleston after the best night of your life!</div></div></div>
       </div>
 
@@ -802,7 +786,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       <!-- Gifts & Registry -->
       <div class="faq-cat reveal">
         <span class="eyebrow">Gifts &amp; Registry</span>
-        <div class="qa"><button>Are you registered? Where can I find your registry?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes! You can find our registry on this site or at the link <a href="https://www.zola.com/registry/igbokwe" target="_blank" rel="noopener">here</a>.</div></div></div>
+        <div class="qa"><button>Are you registered? Where can I find your registry?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes! You can find our registry on this site or at the link <a href="https://www.zola.com/wedding/igbokwe/registry" target="_blank" rel="noopener">here</a>.</div></div></div>
         <div class="qa"><button>Do you have a honeymoon fund?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Yes, it is also under our registry.</div></div></div>
         <div class="qa"><button>Can gifts be shipped directly?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">If you decide to purchase outside the registry platform, gifts can be sent to Sammy&rsquo;s apartment. Please message the mother of the bride, the maid of honor, or Sammy/Gabriel for their address.</div></div></div>
         <div class="qa"><button>Is my presence enough?<span class="plus">+</span></button><div class="ans"><div class="ans-inner">Absolutely. We know many of you will be travelling from across the world to celebrate us, and we are so grateful for your presence. Please do not feel any pressure to celebrate financially.</div></div></div>
@@ -840,7 +824,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
     <span class="eyebrow">We hope you can join us</span>
     <h2 class="section-title" style="margin:.5rem 0 1rem">RSVP</h2>
     <p>Please join us in celebrating our wedding. Use your name and follow the instructions on Zola.</p>
-    <span class="deadline">Please reply before February 1, 2027</span>
+    <span class="deadline">Please reply before January 30, 2027</span>
     <a class="btn" href="https://www.zola.com/wedding/igbokwe/rsvp" target="_blank" rel="noopener">RSVP on Zola</a>
   </div>
 </section>
@@ -848,17 +832,17 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
   <div class="script">Sammy &amp; Gabriel</div>
-  <div class="meta">April 2027 &nbsp;•&nbsp; I&rsquo;On Chapel &nbsp;•&nbsp; Charleston, SC</div>
+  <div class="meta">April 10, 2027 &nbsp;•&nbsp; I&rsquo;On Chapel &nbsp;•&nbsp; Charleston, SC</div>
   <div class="hash">#BonesWedding27</div>
 </footer>
 
 <script>
 /* ── WEDDING_DATE ──────────────────────────────────────────────
-   PLACEHOLDER: Saturday, April 17, 2027, 3:30 PM (local).
+   Saturday, April 10, 2027, 3:30 PM (local).
    Change the values below to your real date/time. Format:
    new Date(YEAR, MONTH-1, DAY, HOUR, MINUTE)   ← month is 0-indexed!
 ─────────────────────────────────────────────────────────────── */
-var WEDDING_DATE = new Date(2027, 3, 17, 15, 30, 0);
+var WEDDING_DATE = new Date(2027, 3, 10, 15, 30, 0);
 
 (function countdown(){
   var d = document.getElementById('cd-days'),
