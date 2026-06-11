@@ -19,8 +19,8 @@
   3. PHOTOS: every photo slot is a <div class="ph"> with a label telling
      you the filename to use. To drop in a real photo, replace that whole
      <div class="ph" ...>...</div> with:
-         <img class="photo" src="photos/FILENAME.jpg" alt="description" />
-     (put your images in a folder named  photos  next to this file).
+         <img class="photo" src="FILENAME.jpg" alt="description" />
+     (images live in the same folder as index.html (the repo root).
   4. LINKS: Zola registry + RSVP links are already wired (search "zola.com").
   ─────────────────────────────────────────────────────────────────────────
 -->
@@ -481,7 +481,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero" id="top">
-  <img class="photo" src="photos/hero.jpg" alt="Sammy and Gabriel under the trees" style="position:absolute;inset:0;object-position:center 35%" />
+  <img class="photo" src="hero.jpg" alt="Sammy and Gabriel under the trees" style="position:absolute;inset:0;object-position:center 35%" />
   <div class="hero-overlay"></div>
 
   <div class="hero-frame">
@@ -499,7 +499,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 <section id="invite" class="invite">
   <div class="wrap reveal">
     <div class="invite-photo-wrap">
-      <img class="photo" src="photos/invite.jpg" alt="Sammy and Gabriel" style="width:100%;height:auto;display:block" />
+      <img class="photo" src="invite.jpg" alt="Sammy and Gabriel" style="width:100%;height:auto;display:block" />
     </div>
     <p class="invite-quote">“To stand beside you, through every moment and every tomorrow.”</p>
     <p class="invite-line">Together with our families, we, Sammy and Gabriel, joyfully invite you to celebrate our union in marriage</p>
@@ -510,9 +510,9 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 
 <!-- ═══════════ OUR STORY (mockup image 2) ═══════════ -->
 <section id="story">
-  <!-- PHOTO SLOT 2 → replace with <img class="photo" src="photos/story.jpg" ...> -->
+  <!-- PHOTO SLOT 2 → replace with <img class="photo" src="story.jpg" ...> -->
   <div class="ph story2-photo reveal">
-    <img class="photo" src="photos/story.jpg" alt="Sammy and Gabriel" style="position:absolute;inset:0;object-position:50% 40%" />
+    <img class="photo" src="story.jpg" alt="Sammy and Gabriel" style="position:absolute;inset:0;object-position:50% 40%" />
     <div class="scrim"></div>
     <span class="label">Our story</span>
   </div>
@@ -524,7 +524,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 
 <!-- ═══════════ COUNTDOWN ═══════════ -->
 <section class="bg-night countdown-wrap">
-  <img class="photo countdown-photo" src="photos/bigday.jpg" alt="" style="filter:grayscale(1);object-position:50% 38%" />
+  <img class="photo countdown-photo" src="bigday.jpg" alt="" style="filter:grayscale(1);object-position:50% 38%" />
   <div class="countdown-inner wrap">
     <span class="eyebrow" style="color:var(--sage)">Counting down to the big day</span>
     <div class="cd-grid">
@@ -546,7 +546,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
     <!-- the big day: photo + watermark date + schedule -->
     <div class="bigday reveal">
       <div class="bigday-photo">
-        <img class="photo" src="photos/bigday.jpg" alt="Sammy and Gabriel" style="object-position:50% 35%" />
+        <img class="photo" src="bigday.jpg" alt="Sammy and Gabriel" style="object-position:50% 35%" />
       </div>
       <div class="bigday-panel">
         <div class="bigday-date" aria-hidden="true">04<br>10<br>27</div>
@@ -671,9 +671,9 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       <h2 class="section-title">Photos</h2>
     </div>
     <div class="gallery2 reveal">
-      <img class="photo g-wide" src="photos/gallery-1.jpg" alt="Sammy and Gabriel in the courtyard" style="object-position:50% 55%" />
-      <img class="photo g-tall" src="photos/gallery-2.jpg" alt="Holding hands" style="object-position:50% 45%" />
-      <img class="photo g-tall" src="photos/gallery-3.jpg" alt="Sammy and Gabriel under cherry blossoms" style="object-position:50% 42%" />
+      <img class="photo g-wide" src="gallery-1.jpg" alt="Sammy and Gabriel in the courtyard" style="object-position:50% 55%" />
+      <img class="photo g-tall" src="gallery-2.jpg" alt="Holding hands" style="object-position:50% 45%" />
+      <img class="photo g-tall" src="gallery-3.jpg" alt="Sammy and Gabriel under cherry blossoms" style="object-position:50% 42%" />
     </div>
   </div>
 </section>
@@ -815,7 +815,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
   </div>
 </section>
 <section id="rsvp" class="rsvp">
-  <!-- PHOTO SLOT → replace with <img class="photo" src="photos/rsvp.jpg" ...> -->
+  <!-- PHOTO SLOT → replace with <img class="photo" src="rsvp.jpg" ...> -->
   <div class="ph">
     <div class="ph-inner"><div class="ph-name" style="color:#fff">rsvp.jpg</div><div class="ph-desc">Soft background photo</div></div>
   </div>
