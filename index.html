@@ -267,10 +267,11 @@ section{padding:4.5rem 1.25rem}
 .card p{font-size:.96rem;margin-bottom:.8rem}
 
 /* ── THINGS TO DO ── */
-.todo-grid{display:grid;gap:1.6rem}
-.todo .ph{aspect-ratio:4/3;margin-bottom:.7rem;border-radius:2px}
-.todo h3{font-family:var(--serif);font-style:italic;font-size:1.35rem}
-.todo p{font-size:.94rem;opacity:.9}
+.todo-grid{display:grid;gap:.7rem;grid-template-columns:repeat(3,1fr)}
+.todo{text-align:center}
+.todo .ph{aspect-ratio:1;width:100%;max-width:190px;margin:0 auto .6rem;border-radius:2px}
+.todo h3{font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.15}
+.todo p{font-size:.74rem;opacity:.9;line-height:1.4}
 
 /* ── GALLERY ── */
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
@@ -345,7 +346,8 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
   .story-grid{grid-template-columns:1fr 1fr;gap:3.5rem}
   .weekend{grid-template-columns:1fr 1fr 1fr}
   .cards{grid-template-columns:1fr 1fr}
-  .todo-grid{grid-template-columns:1fr 1fr}
+  .todo h3{font-size:1.3rem}
+  .todo p{font-size:.92rem}
   .strip{grid-template-columns:1fr 1fr 1fr}
   .gallery{grid-template-columns:repeat(3,1fr);gap:1rem}
   .gallery .ph.wide{grid-column:span 2;aspect-ratio:3/2}
@@ -445,6 +447,10 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 .gallery2{display:grid;gap:.7rem;grid-template-columns:1fr 1fr;max-width:760px;margin:0 auto}
 .gallery2 .photo{width:100%;height:auto;border-radius:2px}
 .gallery2 .g-wide{grid-column:1/-1;aspect-ratio:3/2}
+.gh-icon{aspect-ratio:1;border:1px solid var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--moss)}
+.gh-icon svg{width:40%;height:40%}
+.story2-block .story-copy{max-width:600px;margin:0 auto 1.4rem;text-align:left}
+.story2-block .story-copy p{font-size:1rem;line-height:1.78;margin:0 0 1em;max-width:none}
 .gallery2 .g-tall{aspect-ratio:3/4}
 </style>
 </head>
@@ -488,7 +494,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
     <div class="monogram oval">S<span style="font-size:.55em;opacity:.8">&amp;</span>G</div>
     <div class="names">Sammy <span class="amp">&amp;</span> Gabriel</div>
     <div class="meta">
-      April&nbsp;10,&nbsp;2027 <span class="dot">•</span> Charleston, SC <span class="dot">•</span> Ceremony at 3:30&nbsp;PM
+      April&nbsp;10,&nbsp;2027 <span class="dot">•</span> Charleston, SC <span class="dot">•</span> Ceremony at 4:00&nbsp;PM
     </div>
   </div>
 
@@ -504,7 +510,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
     <p class="invite-quote">“To stand beside you, through every moment and every tomorrow.”</p>
     <p class="invite-line">Together with our families, we, Sammy and Gabriel, joyfully invite you to celebrate our union in marriage</p>
     <div class="invite-date">Saturday, April 10, 2027</div>
-    <div class="invite-time">Ceremony starts at 3:30&nbsp;PM</div>
+    <div class="invite-time">Ceremony starts at 4:00&nbsp;PM</div>
   </div>
 </section>
 
@@ -517,7 +523,14 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
     <span class="label">Our story</span>
   </div>
   <div class="story2-block reveal">
-    <p class="tbd">Your love story goes here — how you met, the proposal, anything you want guests to know. Details coming soon.</p>
+    <div class="story-copy">
+      <p>Way back in the year of our Lord 2022, a young lady named Samantha Daichendt was hot off a JetBlue one-way ticket to NYC. She found herself at an apartment aptly referred to as &ldquo;The Narrows,&rdquo; in which 3 young men she had never met were throwing a party for a newly painted mural.</p>
+      <p>She was approached by a young man in red sunglasses. He introduced himself as MJ. They spoke. The contents of their conversation was lost to time. He exited. She informed her friends later that he was &ldquo;the most handsome man she had ever met.&rdquo;</p>
+      <p>However, due to the unfortunate fact that this young man&rsquo;s name was not in fact MJ, but rather, Gabriel Igbokwe, they didn&rsquo;t connect again. He also did not have any photos on his Instagram account. Sus.</p>
+      <p>But God&rsquo;s plan couldn&rsquo;t be stopped! At a birthday party the next January, Samantha offers to buy Gabriel a Cosmopolitan. Gabriel accepts but is reluctant due to the shape of the glass it comes in and the color of the beverage. The bartender puts the Cosmo into a short glass and Gabriel wraps it in a napkin to disguise the pink drink.</p>
+      <p>After a week of hanging out every day in a group, G &amp; S finally found themselves alone at an art gallery and went to their first dinner date at a Mexican place nearby. A few weeks later they concluded this was their first date and anniversary. It&rsquo;s been 3 years since then!</p>
+      <p>And now we will celebrate with all of our favorite people (you!) shortly after our 4 year anniversary. We love you and can&rsquo;t wait to share the day!</p>
+    </div>
     <div class="sign">Sammy &amp; Gabriel</div>
   </div>
 </section>
@@ -552,10 +565,10 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
         <div class="bigday-date" aria-hidden="true">04<br>10<br>27</div>
         <div class="bigday-script">the<br>big day</div>
         <ul class="sched">
-          <li><span class="t">3:30 PM</span><span class="e">Guest Arrival<small>Please arrive early so we can keep to schedule</small></span></li>
-          <li><span class="t tbd">TBD</span><span class="e">Ceremony<small>Inside the chapel · open seating</small></span></li>
-          <li><span class="t tbd">TBD</span><span class="e">Cocktail Hour<small>Outdoors on the lawn</small></span></li>
-          <li><span class="t tbd">TBD</span><span class="e">Reception<small>Dinner, drinks &amp; dancing under the tent</small></span></li>
+          <li><span class="t">3:00 PM</span><span class="e">Guest Arrival<small>Please arrive early so we can keep to schedule</small></span></li>
+          <li><span class="t">4:00 PM</span><span class="e">Ceremony<small>Inside the chapel · open seating</small></span></li>
+          <li><span class="t">5:00 PM</span><span class="e">Cocktail Hour<small>Outdoors on the lawn</small></span></li>
+          <li><span class="t">6:00 PM</span><span class="e">Reception<small>Dinner, drinks &amp; dancing under the tent</small></span></li>
         </ul>
       </div>
     </div>
@@ -594,7 +607,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 
     <div class="reveal" style="max-width:680px;margin:0 auto">
       <div class="gh-row">
-        <div class="ph"><div class="ph-inner"><div class="ph-name">venue.jpg</div></div></div>
+        <div class="gh-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3"/><path d="M10.5 3.5h3"/><path d="M5 11l7-5 7 5"/><path d="M6 11v9h12v-9"/><path d="M10 20v-4a2 2 0 0 1 4 0v4"/></svg></div>
         <div>
           <div class="sub">The Venue</div>
           <h3>I&rsquo;On Chapel</h3>
@@ -603,7 +616,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
         </div>
       </div>
       <div class="gh-row">
-        <div class="ph"><div class="ph-inner"><div class="ph-name">airport.jpg</div></div></div>
+        <div class="gh-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.7-.1-1.2.1-1.5.4l-.7.7c-.3.3-.3.8.1 1l4.3 2.4-2.5 2.5-1.5-.2-.9.9 2.7 1.6 1.6 2.7.9-.9-.2-1.5 2.5-2.5 2.4 4.3c.2.4.7.4 1 .1l.7-.7c.3-.3.5-.8.4-1.5z"/></svg></div>
         <div>
           <div class="sub">Flying In</div>
           <h3>Charleston Int&rsquo;l (CHS)</h3>
@@ -612,7 +625,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
         </div>
       </div>
       <div class="gh-row">
-        <div class="ph"><div class="ph-inner"><div class="ph-name">car.jpg</div></div></div>
+        <div class="gh-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg></div>
         <div>
           <div class="sub">Getting Around</div>
           <h3>Rental Car</h3>
@@ -842,7 +855,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
    Change the values below to your real date/time. Format:
    new Date(YEAR, MONTH-1, DAY, HOUR, MINUTE)   ← month is 0-indexed!
 ─────────────────────────────────────────────────────────────── */
-var WEDDING_DATE = new Date(2027, 3, 10, 15, 30, 0);
+var WEDDING_DATE = new Date(2027, 3, 10, 16, 0, 0);
 
 (function countdown(){
   var d = document.getElementById('cd-days'),
