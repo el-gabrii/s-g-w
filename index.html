@@ -272,6 +272,8 @@ section{padding:4.5rem 1.25rem}
 .todo .ph{aspect-ratio:1;width:100%;max-width:190px;margin:0 auto .6rem;border-radius:2px}
 .todo h3{font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.15}
 .todo p{font-size:.74rem;opacity:.9;line-height:1.4}
+.todo .todo-ph{background:linear-gradient(135deg,#9cc587 0%,#9ab6e2 28%,#b6a0c8 52%,#cdb4b4 76%,#f6c2cd 100%)}
+.todo .todo-ph::after{display:none}
 
 /* ── GALLERY ── */
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
@@ -434,7 +436,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 /* ── palette dots (FAQ footer nod) ── */
 .dots{display:flex;gap:.55rem;justify-content:center;margin:1.6rem 0 .4rem}
 .dots span{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
-.dots .d1{background:#8d9779}.dots .d2{background:#9fb1c6}.dots .d3{background:#b9c9b7}.dots .d4{background:#2f3a4a}.dots .d5{background:#d9b3bb}
+.dots .d1{background:#82b56a}.dots .d2{background:#8aa8db}.dots .d3{background:#a98fbb}.dots .d4{background:#c4a7aa}.dots .d5{background:#f6b9c4}
 
 @media(min-width:720px){
   .bigday{grid-template-columns:1.15fr 1fr}
@@ -452,6 +454,8 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
 .story2-block .story-copy{max-width:600px;margin:0 auto 1.4rem;text-align:left}
 .story2-block .story-copy p{font-size:1rem;line-height:1.78;margin:0 0 1em;max-width:none}
 .gallery2 .g-tall{aspect-ratio:3/4}
+.bigday-colors{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+.bigday-colors .dots span{width:30px;height:30px}
 </style>
 </head>
 
@@ -570,6 +574,10 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
           <li><span class="t">5:00 PM</span><span class="e">Cocktail Hour<small>Outdoors on the lawn</small></span></li>
           <li><span class="t">6:00 PM</span><span class="e">Reception<small>Dinner, drinks &amp; dancing under the tent</small></span></li>
         </ul>
+        <div class="bigday-colors">
+          <span class="eyebrow" style="display:block;margin-bottom:.6rem">Our colors</span>
+          <div class="dots" style="justify-content:flex-start"><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span><span class="d5"></span></div>
+        </div>
       </div>
     </div>
 
@@ -658,17 +666,17 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
     </div>
     <div class="todo-grid">
       <div class="todo reveal">
-        <div class="ph"><div class="ph-inner"><div class="ph-name" style="color:#fff">eat.jpg</div></div></div>
+        <div class="ph todo-ph"></div>
         <h3>Favorite Restaurants</h3>
         <p class="tbd" style="color:rgba(255,255,255,.75)">Our Charleston restaurant picks are coming soon.</p>
       </div>
       <div class="todo reveal">
-        <div class="ph"><div class="ph-inner"><div class="ph-name" style="color:#fff">do.jpg</div></div></div>
+        <div class="ph todo-ph"></div>
         <h3>Things to Do</h3>
         <p class="tbd" style="color:rgba(255,255,255,.75)">Our favorite things to do in Charleston are coming soon.</p>
       </div>
       <div class="todo reveal">
-        <div class="ph"><div class="ph-inner"><div class="ph-name" style="color:#fff">explore.jpg</div></div></div>
+        <div class="ph todo-ph"></div>
         <h3>Neighborhoods</h3>
         <p class="tbd" style="color:rgba(255,255,255,.75)">Neighborhoods to explore are coming soon.</p>
       </div>
@@ -822,7 +830,7 @@ footer .hash{font-family:var(--label);font-size:.64rem;letter-spacing:.24em;opac
       </div>
 
       <div class="dots reveal" title="Our colors"><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span><span class="d5"></span></div>
-      <p class="center tbd" style="font-size:.9rem">Our color palette — placeholder swatches</p>
+      <p class="center" style="font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)">Our colors</p>
 
     </div>
   </div>
