@@ -480,6 +480,8 @@ body:not(.locked) #gate{display:none}
 #gate .wrap{width:100%}
 body.locked #locked{display:none}
 body.locked .nav-links,body.locked .nav-toggle{display:none}
+.hero .photo{transition:filter .9s var(--ease), transform .9s var(--ease)}
+body.locked .hero .photo{filter:blur(7px);transform:scale(1.06)}
 </style>
 </head>
 
